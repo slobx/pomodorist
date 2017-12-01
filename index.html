@@ -12,11 +12,17 @@
 </head>
 
 <body>
-    <h1>Pomomdoro timer</h1>
-    <div>
-        <input type="button" name="" id="btn_start" value="Start Timer">
-        <input type="button" name="" id="btn_pause" value="Pause Timer">
-        <input type="button" name="" id="btn_stop" value="Stop Timer">
+    <div id="btn_container">
+        <div id="btn_content">
+            <input type="button" name="button" class="button" id="btn_start" value="Start Timer">
+            <input type="button" name="button" class="button" id="btn_pause" value="Pause Timer">
+            <input type="button" name="button" class="button" id="btn_stop" value="Stop Timer">
+        </div>
+        <div id="counter_container">
+            <p id="minutes">00</p>
+            <p>:</p>
+            <p id="seconds">00</p>
+        </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
