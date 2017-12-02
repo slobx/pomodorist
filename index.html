@@ -9,21 +9,32 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/pomodorist.css">
+    <link rel="shortcut icon" type="image/png" href="/img/tomato.png" />
 </head>
 
 <body>
     <div id="content_container">
         <div id="btn_container">
             <input type="button" name="button" class="button" id="btn_start" value="Start Timer" onclick="startTimer()">
-            <input type="button" name="button" class="button" id="btn_pause" value="Pause Timer">
-            <input type="button" name="button" class="button" id="btn_stop" value="Stop Timer">
+            <input type="button" name="button" class="button" id="btn_pause" value="Pause Timer" onclick="pauseTimer()">
+            <input type="button" name="button" class="button" id="btn_stop" value="Stop Timer" onclick="stopTimer()">
         </div>
         <div id="counter_container">
-            <p id="minutes">25</p>
+            <p id="minutes" title="Click on minutes to change it!" onclick="changeMinutes()">25</p>
             <p>:</p>
             <p id="seconds">00</p>
         </div>
     </div>
+    <div id="alertBox">
+        <div id="alertBox_container">
+            <div id="alertBox_titlebar"><span style="padding-left: 3px;">Enter new value for minutes between 0-60</span></div>
+            <div>
+                <input id="alertBox_close" type="button" value="X" onclick="alertBox_hide()">
+            </div>
+            <div id="alertBox_text"></div>
+        </div>
+    </div>
+    <audio id="audio" src="/audio/alarm.mp3"></audio>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
