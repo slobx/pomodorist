@@ -4,6 +4,7 @@ var timer_state = 1; //1 - stopped, 2 - paused, 3 - running
 var html_seconds = document.getElementById("seconds");
 var html_minutes = document.getElementById("minutes");
 var html_btn_pause = document.getElementById("btn_pause");
+var html_btn_
 var new_minutes = 0;
 
 function countdown() {
@@ -41,12 +42,10 @@ function startTimer() {
 function pauseTimer() {
     if (timer_state == 3) {
         clearInterval(intervalIdentifier);
-        paused_state = true;
         html_btn_pause.value = "Resume timer";
         timer_state = 2;
-    } else {
+    } else if (timer_state == 2) {
         intervalIdentifier = setInterval(countdown, 1000);
-        paused_state = false;
         html_btn_pause.value = "Pause timer";
         timer_state = 3;
     }
@@ -73,22 +72,6 @@ function changeMinutes() {
     if (timer_state == 1) {
         alertBox('Enter new minutes between 0-60', 'prompt', '');
     }
-    /*if (timer_state == 1) {
-        var minutes = Math.floor((default_time_seconds % (60 * 60)) / 60);
-        new_minutes = window.prompt("Enter new minutes between 0-60", minutes);
-
-        if (isNaN(new_minutes)) {
-            new_minutes = prompt("A number is required.");
-        } else if (new_minutes % 1 != 0) {
-            new_minutes = prompt("Please do not enter a decimal number.");
-        } else if (new_minutes > 60) {
-            new_minutes = prompt("Please enter number 0-60");
-        } else if (new_minutes == null || new_minutes == "") {
-            new_minutes = default_time_seconds / 60;
-        }
-
-        html_minutes.innerHTML = new_minutes;
-        default_time_seconds = new_minutes * 60;*/
 
 }
 
