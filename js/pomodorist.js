@@ -1,40 +1,33 @@
-var default_time_seconds = 1500;
+var time = 1500;
+var new_time = 1500;
 var intervalIdentifier;
 var timer_state = 1; //1 - stopped, 2 - paused, 3 - running
-var html_seconds = document.getElementById("seconds");
-var html_minutes = document.getElementById("minutes");
-var html_btn_pause = document.getElementById("btn_pause");
-var html_btn_
-var new_minutes = 0;
+const html_btn_pause = document.getElementById("btn_pause");
+const html_btn_start = document.getElementById('btn_start');
+const html_btn_stop = document.getElementById('btn_stop');
+const display = document.getElementById('display');
+
+
+function refresh() {
+    display.innerHTML = (Math.floor(time / 60) < 10 ? "0" : "") + Math.floor(time / 60) + ":" + (Math.floor(time % 60) < 10 ? "0" : "") + Math.floor(time % 60);
+
+}
 
 function countdown() {
-    default_time_seconds--;
+    time--;
+    refresh();
 
-    var minutes = Math.floor((default_time_seconds % (60 * 60)) / 60);
-    var seconds = Math.floor(default_time_seconds % 60);
-
-    html_minutes.innerHTML = minutes;
-    if (seconds < 10) {
-        var new_second = "0" + seconds;
-        html_seconds.innerHTML = new_second;
-    } else {
-        html_seconds.innerHTML = seconds;
-    }
-
-
-    if (default_time_seconds <= 0) {
+    if (time <= 0) {
         clearInterval(intervalIdentifier);
         var audio = document.getElementById("audio");
         audio.play();
     }
 }
 
-
 function startTimer() {
     if (timer_state == 1) {
         clearInterval(intervalIdentifier);
         intervalIdentifier = setInterval(countdown, 1000);
-        console.log(intervalIdentifier);
         timer_state = 3;
     }
 }
@@ -53,15 +46,8 @@ function pauseTimer() {
 
 function stopTimer() {
     clearInterval(intervalIdentifier);
-    if (new_minutes == 0) {
-        default_time_seconds = 1500;
-    } else {
-        default_time_seconds = new_minutes * 60;
-    }
-    var minutes = Math.floor((default_time_seconds % (60 * 60)) / 60);
-    var seconds = Math.floor(default_time_seconds % 60);
-    html_minutes.innerHTML = minutes;
-    html_seconds.innerHTML = "0" + seconds;
+    time = new_time;
+    refresh();
     html_btn_pause.value = "Pause timer";
     timer_state = 1;
 
@@ -75,9 +61,11 @@ function changeMinutes() {
 
 }
 
-
-
 function alertBox(text, type, text) {
+    html_btn_pause.disabled = true;
+    html_btn_stop.disabled = true;
+    html_btn_start.disabled = true;
+
 
     var button = '<div id="alertBox_button_div" ><input id="alertBox_button" class="button" style="margin: 7px;" type="button" value="Close" onclick="alertBox_hide()"></div>'
 
@@ -95,13 +83,15 @@ function alertBox(text, type, text) {
         document.getElementById('alertBox_text').style.top = "25%"
         document.getElementById('alertBox_button').value = "OK"
         document.getElementById('alertBox_button').onclick = function() {
-            new_minutes = parseInt(document.getElementById('ptext').value);
-            if (new_minutes == "" || new_minutes > 60) {
+            time = parseInt(document.getElementById('ptext').value);
+            if (time == "" || time > 60) {
                 alert("You must enter number between 0-60");
             } else {
-                html_minutes.innerHTML = new_minutes;
-                default_time_seconds = new_minutes * 60;
+                time = time * 60;
+                new_time = time;
+                refresh();
                 alertBox_hide();
+
             }
         }
         if (text) { document.getElementById('ptext').value = text }
@@ -117,5 +107,8 @@ function alertBox(text, type, text) {
 function alertBox_hide() {
 
     document.getElementById('alertBox_container').style.visibility = 'hidden'
+    html_btn_pause.disabled = false;
+    html_btn_stop.disabled = false;
+    html_btn_start.disabled = false;
 
 }
